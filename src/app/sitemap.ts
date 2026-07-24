@@ -1,14 +1,20 @@
 import type { MetadataRoute } from "next";
-import { getBlogSlugs, getProjectSlugs, getServiceSlugs } from "@cms/lib/fetch";
+import {
+  getBlogSlugs,
+  getProjectSlugs,
+  getServiceSlugs,
+  getTeamSlugs,
+} from "@cms/lib/fetch";
 import { SITE_URL } from "@/lib/seo";
 
 export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [serviceSlugs, projectSlugs, blogSlugs] = await Promise.all([
+  const [serviceSlugs, projectSlugs, blogSlugs, teamSlugs] = await Promise.all([
     getServiceSlugs(),
     getProjectSlugs(),
     getBlogSlugs(),
+    getTeamSlugs(),
   ]);
 
   const now = new Date();
@@ -55,6 +61,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.65,
+    });
+  }
+
+  for (const slug of teamSlugs) {
+    entries.push({
+      url: `${SITE_URL}/ekip/${slug}`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.55,
     });
   }
 

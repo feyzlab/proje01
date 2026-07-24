@@ -88,8 +88,21 @@ export const projectBySlugQuery = groq`*[_type == "project" && slug.current == $
 export const allProjectSlugsQuery = groq`*[_type == "project" && defined(slug.current)].slug.current`;
 
 export const teamQuery = groq`*[_type == "teamMember"] | order(order asc){
-  name, role, bio, "photo": photo${IMG}, socials[]{ platform, href }
+  name, role, bio, email, phone,
+  "photo": photo${IMG},
+  socials[]{ platform, href },
+  "slug": slug.current
 }`;
+
+export const teamMemberBySlugQuery = groq`*[_type == "teamMember" && slug.current == $slug][0]{
+  name, role, bio, email, phone,
+  "photo": photo${IMG},
+  socials[]{ platform, href },
+  "slug": slug.current,
+  seo${SEO}
+}`;
+
+export const allTeamSlugsQuery = groq`*[_type == "teamMember" && defined(slug.current)].slug.current`;
 
 export const testimonialsQuery = groq`*[_type == "testimonial"] | order(order asc){
   quote, name, role

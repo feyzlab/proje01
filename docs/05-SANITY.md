@@ -52,8 +52,9 @@ CORS origins (`http://localhost:3000`, prod domain) are already registered.
   yorumlar ilgili kayıtlardaki "Ana sayfada öne çıkar" anahtarıyla seçilir.
 - **Sayfalar:** Hakkımızda, Hizmetler, Projeler, Ekibimiz, Memnuniyet, SSS, Blog,
   İletişim (her biri başlık + giriş + SEO).
-- **Koleksiyonlar:** Hizmetler, Projeler, Blog yazıları, Ekip, Yorumlar, SSS,
-  İş Ortağı Logoları.
+- **Koleksiyonlar:** Hizmetler, Projeler, Blog yazıları, Ekip (slug + iletişim
+  alanlarıyla `/ekip/[slug]` dijital kartvizit), Yorumlar, SSS, İş Ortağı
+  Logoları.
 - **Blog yazıları:** Kapak görseli opsiyonel. Yüklenmezse başlık + kategoriye göre
   otomatik markalı kapak üretilir (`/api/og/blog`) — kart, hero, OpenGraph ve
   JSON-LD için aynı görsel kullanılır. Özel kapak veya SEO görseli her zaman

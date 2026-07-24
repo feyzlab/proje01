@@ -22,8 +22,10 @@ import {
   servicesNavQuery,
   servicesPageQuery,
   siteSettingsQuery,
+  teamMemberBySlugQuery,
   teamPageQuery,
   teamQuery,
+  allTeamSlugsQuery,
   testimonialsPageQuery,
   testimonialsQuery,
 } from "./queries";
@@ -481,25 +483,34 @@ export type TeamMemberData = {
   name: string;
   role: string;
   bio?: string;
+  email?: string;
+  phone?: string;
   photo: Img | null;
   socials: Social[];
+  slug: string;
+  href: string;
 };
 
-export async function getTeam(): Promise<TeamMemberData[]> {
-  const rows = await fetchCached<
-    {
-      name: string;
-      role: string;
-      bio?: string;
-      photo: RawImg;
-      socials?: { platform: string; href?: string }[];
-    }[]
-  >(teamQuery, {}, [TAGS.team]);
-  if (!rows?.length) return [];
-  return rows.map((m) => ({
+type TeamRaw = {
+  name: string;
+  role: string;
+  bio?: string;
+  email?: string;
+  phone?: string;
+  photo: RawImg;
+  socials?: { platform: string; href?: string }[];
+  slug?: string;
+  seo?: LandingData["seo"];
+};
+
+function mapTeamMember(m: TeamRaw): TeamMemberData | null {
+  if (!m.slug) return null;
+  return {
     name: m.name,
     role: m.role,
     bio: m.bio,
+    email: m.email || undefined,
+    phone: m.phone || undefined,
     photo: resolveImage(m.photo, m.name),
     socials: (m.socials ?? [])
       .filter((s) => !!s.href)
@@ -508,7 +519,33 @@ export async function getTeam(): Promise<TeamMemberData[]> {
         label: SOCIAL_LABELS[s.platform] ?? s.platform,
         href: s.href as string,
       })),
-  }));
+    slug: m.slug,
+    href: `/ekip/${m.slug}`,
+  };
+}
+
+export async function getTeam(): Promise<TeamMemberData[]> {
+  const rows = await fetchCached<TeamRaw[]>(teamQuery, {}, [TAGS.team]);
+  if (!rows?.length) return [];
+  return rows.map(mapTeamMember).filter((m): m is TeamMemberData => !!m);
+}
+
+export async function getTeamSlugs(): Promise<string[]> {
+  return (
+    (await fetchCached<string[]>(allTeamSlugsQuery, {}, [TAGS.team])) ?? []
+  );
+}
+
+export async function getTeamMember(slug: string) {
+  const m = await fetchCached<TeamRaw | null>(
+    teamMemberBySlugQuery,
+    { slug },
+    [TAGS.team]
+  );
+  if (!m) return null;
+  const mapped = mapTeamMember(m);
+  if (!mapped) return null;
+  return { ...mapped, seo: m.seo };
 }
 
 export async function getTestimonials(): Promise<Testimonial[]> {

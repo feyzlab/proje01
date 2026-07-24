@@ -32,7 +32,7 @@
 
 ## Phase 2 — Remaining pages (after approval)
 - [ ] /hakkinda (About)
-- [ ] /ekibimiz (Team)
+- [ ] /ekibimiz (Team) + /ekip/[slug] dijital kartvizit
 - [ ] /memnuniyet (Testimonials)
 - [ ] /sss (FAQ)
 - [ ] /hizmetler (Services)
