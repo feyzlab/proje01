@@ -218,10 +218,24 @@ const PROJECTS = [
 ];
 
 const TEAM = [
-  { slug: "elif-demir", name: "Elif Demir", role: "Kurucu & Baş Mimar", photo: `${WP}/2025/08/custom-img-27.jpg`, bio: "Konut ve ticari projelerde 10 yılı aşkın tecrübesiyle Proje 01'in tasarım vizyonunu yönetir." },
-  { slug: "mehmet-kaya", name: "Mehmet Kaya", role: "Proje Müdürü", photo: `${WP}/2025/08/custom-img-28.jpg`, bio: "Saha, bütçe ve zaman planlamasını koordine ederek projelerin sorunsuz teslimini sağlar." },
-  { slug: "zeynep-arslan", name: "Zeynep Arslan", role: "İç Mimar", photo: `${WP}/2025/08/custom-img-29.jpg`, bio: "Konsept tasarımı, malzeme seçimi ve 3D görselleştirme süreçlerini yürütür." },
-  { slug: "can-yildiz", name: "Can Yıldız", role: "Saha Şefi", photo: `${WP}/2025/08/custom-img-30.jpg`, bio: "Uygulama ekiplerini yönetir, işçilik kalitesini ve iş güvenliğini denetler." },
+  {
+    slug: "mumin-can-ozturk",
+    name: "Mümin Can Öztürk",
+    role: "Kurucu",
+    photo: `${WP}/2025/08/custom-img-27.jpg`,
+    bio: "Proje 01'in kurucusu. Mimarlık, iç mimarlık ve anahtar teslim tadilat projelerinde tasarım vizyonunu yönetir.",
+    email: "mcanzturk@gmail.com",
+    phone: "+90 555 555 55 55",
+  },
+  {
+    slug: "eren-huseyin-ozturk",
+    name: "Eren Hüseyin Öztürk",
+    role: "Kurucu Ortak",
+    photo: `${WP}/2025/08/custom-img-28.jpg`,
+    bio: "Proje 01 kurucu ortağı. Proje yönetimi ve uygulama süreçlerinde ekiple birlikte çalışır.",
+    email: "",
+    phone: "+90 555 555 55 55",
+  },
 ];
 
 const TESTIMONIALS = [
@@ -536,8 +550,11 @@ async function run() {
       _id: `team-${m.slug}`,
       _type: "teamMember",
       name: m.name,
+      slug: { _type: "slug", current: m.slug },
       role: m.role,
       bio: m.bio,
+      email: m.email || undefined,
+      phone: m.phone || undefined,
       photo: await img(m.photo, m.name),
       order: i + 1,
     });

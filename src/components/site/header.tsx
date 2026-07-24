@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import {
   AnimatePresence,
   motion,
@@ -14,6 +15,12 @@ import { CaretDown, List, X } from "@phosphor-icons/react";
 import { SocialIcon } from "@/components/site/social-icons";
 import { cn } from "@/lib/utils";
 import type { SiteData } from "@cms/lib/types";
+
+/** Routes whose first viewport is light (no dark PageHero) — ink header from top. */
+function isLightTopRoute(pathname: string | null) {
+  if (!pathname) return false;
+  return pathname === "/ekip" || pathname.startsWith("/ekip/");
+}
 
 function Wordmark({
   site,
@@ -114,6 +121,8 @@ function MobileNavAccordion({
 }
 
 export function Header({ site }: { site: SiteData }) {
+  const pathname = usePathname();
+  const lightTop = isLightTopRoute(pathname);
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [expandedSections, setExpandedSections] = useState<Set<string>>(
@@ -147,14 +156,16 @@ export function Header({ site }: { site: SiteData }) {
     setExpandedSections(new Set());
   };
 
-  const textBase = scrolled ? "text-[var(--color-ink)]" : "text-white";
+  // Light-top pages (e.g. /ekip/[slug]) need ink text even before scroll.
+  const solid = scrolled || lightTop;
+  const textBase = solid ? "text-[var(--color-ink)]" : "text-white";
 
   return (
     <>
       <header
         className={cn(
           "fixed inset-x-0 top-0 z-50 transition-colors duration-500",
-          scrolled
+          solid
             ? "border-b border-[var(--color-border-warm)] bg-[var(--color-bg)]/90 backdrop-blur-md"
             : "bg-transparent"
         )}
@@ -167,7 +178,7 @@ export function Header({ site }: { site: SiteData }) {
           >
             <Wordmark
               site={site}
-              className={site.logo?.src && !scrolled ? "brightness-0 invert" : ""}
+              className={site.logo?.src && !solid ? "brightness-0 invert" : ""}
             />
           </Link>
 

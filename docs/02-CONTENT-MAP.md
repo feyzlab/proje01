@@ -9,6 +9,7 @@
 | `/`               | `/`                    | Ana Sayfa            | Landing     | 1     |
 | `/hakkinda`       | `/hakkinda/`           | Hakkımızda           | About       | 2     |
 | `/ekibimiz`       | `/ekibimiz/`           | Ekibimiz             | Team        | 2     |
+| `/ekip/[slug]`    | (team member card)     | (dijital kartvizit)  | Collection  | 2     |
 | `/memnuniyet`     | `/memnuniyet/`         | Memnuniyet           | Testimonials| 2     |
 | `/sss`            | `/sik-sorulan-sorular/`| Sık Sorulan Sorular  | FAQ         | 2     |
 | `/hizmetler`      | `/hizmetler/`          | Hizmetler            | Services    | 2     |
@@ -103,6 +104,14 @@ Socials in header: Instagram, X/Twitter (icons top-right).
 ---
 
 ## Phase 2 pages — copy TBD (fetch from live before building each)
+
+### Ekip dijital kartvizit (`/ekip/[slug]`)
+Her ekip üyesi için profil: fotoğraf, isim, ünvan, kısa bio, e-posta, telefon,
+sosyal bağlantılar, vCard indirme. CMS: `teamMember` (slug zorunlu).
+
+Şimdilik kayıtlar (CMS'te oluşturulacak):
+- `/ekip/mumin-can-ozturk` — Mümin Can Öztürk
+- `/ekip/eren-huseyin-ozturk` — Eren Hüseyin Öztürk
 
 Blog posts + project items currently are demo content (English) on the live site;
 confirm with owner whether to migrate as-is or leave for the intern to author.

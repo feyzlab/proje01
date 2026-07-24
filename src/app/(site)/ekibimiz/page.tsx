@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { PageHero } from "@/components/site/page-hero";
 import { CmsImage } from "@/components/site/cms-image";
 import { SocialIcon } from "@/components/site/social-icons";
@@ -52,8 +53,8 @@ export default async function EkibimizPage() {
       <section className="bg-[var(--color-bg)] py-20 md:py-28">
         <div className="container-edge grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
           {team.map((m, i) => (
-            <Reveal key={m.name} delay={(i % 4) * 0.05}>
-              <div className="group">
+            <Reveal key={m.slug} delay={(i % 4) * 0.05}>
+              <Link href={m.href} className="group block">
                 <div className="relative aspect-[3/4] overflow-hidden bg-[var(--color-bg-warm)]">
                   <CmsImage
                     image={m.photo}
@@ -63,7 +64,7 @@ export default async function EkibimizPage() {
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
                 </div>
-                <h3 className="mt-4 font-display text-lg font-medium text-[var(--color-ink)]">
+                <h3 className="mt-4 font-display text-lg font-medium text-[var(--color-ink)] transition-colors group-hover:text-[var(--color-clay)]">
                   {m.name}
                 </h3>
                 <p className="text-sm text-[var(--color-clay)]">{m.role}</p>
@@ -75,20 +76,17 @@ export default async function EkibimizPage() {
                 {m.socials.length > 0 && (
                   <div className="mt-3 flex gap-3 text-[var(--color-meta)]">
                     {m.socials.map((s) => (
-                      <a
+                      <span
                         key={s.platform}
-                        href={s.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        aria-label={`${m.name} ${s.label}`}
-                        className="transition-colors hover:text-[var(--color-clay)]"
+                        aria-hidden
+                        className="transition-colors group-hover:text-[var(--color-clay)]"
                       >
                         <SocialIcon platform={s.platform} className="size-4" />
-                      </a>
+                      </span>
                     ))}
                   </div>
                 )}
-              </div>
+              </Link>
             </Reveal>
           ))}
         </div>
