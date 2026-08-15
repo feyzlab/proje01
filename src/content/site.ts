@@ -127,7 +127,7 @@ export const landing = {
         text: "mimarlık, ve anahtar teslim tadilat",
         underline: true,
       },
-      { type: "text", text: "alanlarında hizmet sunan", underline: false },
+      { type: "text", text: " alanlarında hizmet sunan", underline: false },
       {
         type: "gallery",
         images: [

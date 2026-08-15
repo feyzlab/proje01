@@ -61,7 +61,7 @@
 }
 
 .contact-marquee-track {
-  animation: contact-marquee 22s linear infinite;
+  animation: contact-marquee 360s linear infinite;
   will-change: transform;
 }
 
