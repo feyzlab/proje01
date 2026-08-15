@@ -1,21 +1,30 @@
 import type { Metadata } from "next";
-import { Inter, Inter_Tight } from "next/font/google";
+import localFont from "next/font/local";
 import { DEFAULT_OG_PATH } from "@/lib/og-constants";
 import "./globals.css";
 
-const inter = Inter({
+const inter = localFont({
+  src: [
+    { path: "./fonts/inter-latin-ext.woff2", weight: "100 900", style: "normal" },
+    { path: "./fonts/inter-latin.woff2", weight: "100 900", style: "normal" },
+  ],
   variable: "--font-inter",
-  subsets: ["latin", "latin-ext"],
   display: "swap",
-  adjustFontFallback: true,
+  adjustFontFallback: "Arial",
 });
 
-const interTight = Inter_Tight({
+const interTight = localFont({
+  src: [
+    {
+      path: "./fonts/inter-tight-latin-ext.woff2",
+      weight: "100 900",
+      style: "normal",
+    },
+    { path: "./fonts/inter-tight-latin.woff2", weight: "100 900", style: "normal" },
+  ],
   variable: "--font-inter-tight",
-  subsets: ["latin", "latin-ext"],
   display: "swap",
-  weight: ["500", "600"],
-  adjustFontFallback: true,
+  adjustFontFallback: "Arial",
 });
 
 const SITE_URL = "https://proje01.com";
