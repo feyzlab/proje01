@@ -18,7 +18,7 @@ const SEGMENTS = [
   { type: "text", text: "Proje 01", underline: false },
   { type: "gallery" },
   { type: "text", text: "mimarlık, ve anahtar teslim tadilat", underline: true },
-  { type: "text", text: "alanlarında hizmet ", underline: false },
+  { type: "text", text: " alanlarında hizmet ", underline: false },
   {
     type: "cluster",
     parts: [
